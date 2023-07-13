@@ -6,13 +6,14 @@ module.exports = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     if (decoded.role !== "admin") {
       return res.status(401).json({
-        message: "Not an admin",
         status: "error",
+        message: "Not an admin",
       });
     }
     req.userData = decoded;
   } catch (error) {
     return res.status(401).json({
+      status: "error",
       message: "Auth failed",
     });
   }

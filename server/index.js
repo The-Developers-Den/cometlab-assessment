@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const user = require("./api/routes/user");
+const question = require("./api/routes/questions");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -17,6 +18,7 @@ db.once("open", function () {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/api/users", user);
+app.use("/api/questions", question);
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
