@@ -1,10 +1,6 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const router = express.Router();
 const checkAdmin = require("../middleware/check-admin");
-const User = require("../models/user");
 const axios = require("axios");
 
 router.delete("/delete/:id", checkAdmin, async (req, res, next) => {
