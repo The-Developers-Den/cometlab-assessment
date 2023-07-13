@@ -6,7 +6,7 @@ const user = require("./api/routes/user");
 const app = express();
 const port = process.env.PORT || 3000;
 
-//connecting mongoDB
+//connecting to mongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -16,7 +16,7 @@ db.once("open", function () {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/users", users);
+app.use("/api/users", user);
 
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
