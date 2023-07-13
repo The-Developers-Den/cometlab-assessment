@@ -70,4 +70,65 @@ router.post("/signup", (req, res, next) => {
     });
 });
 
+router.post("/login", (req, res, next) => {
+  const { email, password } = req.body;
+
+  //check if fields are empty
+  if (!password || !email) {
+    return res.status(400).json({
+      message: "provide all fields",
+      status: "error",
+    });
+  }
+
+  //check if user exists
+  User.findOne({ email: email })
+    .exec()
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({
+          status: "error",
+          message: "email or password incorrect",
+        });
+      } else {
+        bcrypt.compare(password, user.password, (err, result) => {
+          if (err) {
+            return res.status(401).json({
+              status: "error",
+              message: "email or password incorrect",
+            });
+          }
+          if (result) {
+            const token = jwt.sign(
+              {
+                username: user.username,
+                email: user.email,
+                role: user.role,
+              },
+              process.env.JWT_KEY,
+              {
+                expiresIn: "1d",
+              }
+            );
+            return res.status(200).json({
+              status: "success",
+              message: "Auth successful",
+              token: token,
+            });
+          }
+          return res.status(401).json({
+            status: "error",
+            message: "email or password incorrect",
+          });
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        status: "error",
+        message: err,
+      });
+    });
+});
 module.exports = router;
