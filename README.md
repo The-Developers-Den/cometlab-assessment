@@ -44,11 +44,11 @@ npm run start
 
 1.2 Login with help of bcrpyt & jwt  <br>
 
-![login-user](asset/login.png)
+![login-user](assets/login.png)
 
 > Entering wrong password
 
-![login-user-wrong](asset/login-wrong.png)
+![login-user-wrong](assets/login-wrong.png)
 
 ### 2. Question
 
@@ -56,4 +56,4 @@ npm run start
 
 2.1 Checking middleware for CRUD functionality <br>
 
-![addauth-user](asset/checkauth.png)
+![addauth-user](assets/checkauth.png)
