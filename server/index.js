@@ -14,6 +14,10 @@ db.once("open", function () {
   console.log("Connected to MongoDB!");
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use("/users", users);
+
 app.listen(port, () => {
   console.log(`Server started at port ${port}`);
 });
