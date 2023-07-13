@@ -38,8 +38,8 @@ npm run start
 
 1.1 Creating new User using bcrpyt <br>
 
-![new-user](asset/signup.png)
-![new-user](asset/signup1.png)
+![new-user](assets/signup.png)
+![new-user](assets/signup1.png)
 
 
 1.2 Login with help of bcrpyt & jwt  <br>
