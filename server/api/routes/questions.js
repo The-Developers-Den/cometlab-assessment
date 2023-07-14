@@ -83,6 +83,30 @@ router.get("/:id/testcases/:number", async (req, res) => {
     });
 });
 
+// get results
+
+router.get("/results/:id", async (req, res, next) => {
+  const { id } = req.params;
+
+  axios
+    .get(
+      process.env.ENDPOINT +
+        "/submissions/" +
+        id +
+        "?access_token=" +
+        process.env.ACCESS_TOKEN
+    )
+    .then((data) => {
+      return res.status(201).json(data.data);
+    })
+    .catch((resp) => {
+      return res.status(400).json({
+        status: "error",
+        message: resp.response?.statusText,
+      });
+    });
+});
+
 //update question
 router.put("/edit/:id", checkAdmin, async (req, res) => {
   const { id } = req.params;
@@ -268,6 +292,44 @@ router.post("/create/testcase/:id", checkAdmin, async (req, res, next) => {
             message: err,
           });
         });
+    })
+    .catch((resp) => {
+      return res.status(400).json({
+        status: "error",
+        message: resp.response?.statusText,
+      });
+    });
+});
+
+// submit solution
+router.post("/submit", async (req, res, next) => {
+  const { problemId, source, compilerId, tests } = req.body;
+
+  if (!compilerId || !source || !problemId) {
+    return res.status(400).json({
+      status: "error",
+      message: "provide all fileds",
+    });
+  }
+
+  axios
+    .post(
+      process.env.ENDPOINT +
+        "/submissions?access_token=" +
+        process.env.ACCESS_TOKEN,
+      {
+        problemId,
+        source,
+        compilerId,
+        tests,
+      }
+    )
+    .then((data) => {
+      return res.status(201).json({
+        status: "success",
+        message: data.statusText,
+        id: data.data.id,
+      });
     })
     .catch((resp) => {
       return res.status(400).json({

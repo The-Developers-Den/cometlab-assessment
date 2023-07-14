@@ -62,7 +62,7 @@ npm run start
 
 ![login-user-wrong](assets/login-wrong.png)
 
-### 2. Question
+### 2. Problems
 
 2.1 Checking middleware for CRUD functionality <br>
 
@@ -103,3 +103,13 @@ npm run start
 2.10 Delete a question <br>
 
 ![addauth-user](assets/del-q.png)
+
+### 3. Submissions
+
+3.1 Create a submisson <br>
+
+![addauth-user](assets/create-sub.png)
+
+3.2 Get submisson results <br>
+
+![addauth-user](assets/sub-r.png)
