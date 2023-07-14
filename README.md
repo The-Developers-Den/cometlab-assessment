@@ -43,7 +43,7 @@ npm i
 npm run start
 ```
 
-> Postamn docs can be accessed from ![here](https://www.postman.com/navigation-observer-59279834/workspace/public-workspace/collection/23083258-d874e954-2c51-4eff-96e0-b51719d868af?action=share&creator=23083258)
+> Postamn docs can be accessed from [here](https://www.postman.com/navigation-observer-59279834/workspace/public-workspace/collection/23083258-d874e954-2c51-4eff-96e0-b51719d868af?action=share&creator=23083258)
 
 ## Functionalities
 
