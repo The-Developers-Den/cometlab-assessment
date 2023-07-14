@@ -41,7 +41,6 @@ router.post("/signup", (req, res, next) => {
               role: role,
               password: hash,
             });
-            console.log(user);
             user
               .save()
               .then((result) => {
@@ -51,7 +50,6 @@ router.post("/signup", (req, res, next) => {
                 });
               })
               .catch((err) => {
-                console.log(err);
                 res.status(500).json({
                   status: "error",
                   message: err,

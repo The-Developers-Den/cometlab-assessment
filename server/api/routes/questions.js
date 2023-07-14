@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const checkAdmin = require("../middleware/check-admin");
 const axios = require("axios");
+const Problems = require("../models/problem");
 
-//get all questions
+//get all problems
 router.get("/", async (req, res) => {
   axios
     .get(process.env.ENDPOINT + "/problems", {
@@ -22,7 +23,7 @@ router.get("/", async (req, res) => {
     });
 });
 
-//get particular question
+//get particular problem
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   axios
@@ -101,10 +102,20 @@ router.put("/edit/:id", checkAdmin, async (req, res) => {
       }
     )
     .then((data) => {
-      return res.status(201).json({
-        status: "success",
-        message: "Updated successfully",
-      });
+      Problems.updateOne({ id: id }, { $set: { name, body, masterjudgeId } })
+        .exec()
+        .then(() => {
+          return res.status(201).json({
+            status: "success",
+            message: "Updated successfully",
+          });
+        })
+        .catch((err) => {
+          return res.status(500).json({
+            status: "error",
+            message: err,
+          });
+        });
     })
     .catch((resp) => {
       return res.status(400).json({
@@ -154,7 +165,7 @@ router.put("/edit/:id/testcase/:number", checkAdmin, async (req, res) => {
     });
 });
 
-//create question
+//create problem
 router.post("/create", checkAdmin, async (req, res, next) => {
   const { name, body, masterjudgeId } = req.body;
 
@@ -177,12 +188,32 @@ router.post("/create", checkAdmin, async (req, res, next) => {
       }
     )
     .then((data) => {
-      return res.status(201).json({
-        status: "success",
-        message: data.statusText,
+      const problem = new Problems({
         id: data.data.id,
         code: data.data.code,
+        name: name,
+        body: body,
+        masterjudge: {
+          id: masterjudgeId,
+        },
       });
+      problem
+        .save()
+        .then((resp) => {
+          return res.status(201).json({
+            status: "success",
+            message: data.statusText,
+            id: data.data.id,
+            code: data.data.code,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json({
+            status: "error",
+            message: err,
+          });
+        });
     })
     .catch((resp) => {
       return res.status(400).json({
@@ -204,7 +235,6 @@ router.post("/create/testcase/:id", checkAdmin, async (req, res, next) => {
       message: "provide all fileds",
     });
   }
-
   axios
     .post(
       process.env.ENDPOINT +
@@ -220,11 +250,24 @@ router.post("/create/testcase/:id", checkAdmin, async (req, res, next) => {
       }
     )
     .then((data) => {
-      return res.status(201).json({
-        status: "success",
-        message: data?.statusText,
-        number: data.data.number,
-      });
+      Problems.updateOne(
+        { id: id },
+        { $push: { testcases: { number: data.data.number } } }
+      )
+        .exec()
+        .then(() => {
+          return res.status(201).json({
+            status: "success",
+            message: data?.statusText,
+            number: data.data.number,
+          });
+        })
+        .catch((err) => {
+          return res.status(500).json({
+            status: "error",
+            message: err,
+          });
+        });
     })
     .catch((resp) => {
       return res.status(400).json({
