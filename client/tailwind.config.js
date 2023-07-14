@@ -15,6 +15,7 @@ module.exports = {
     },
     fontFamily: {
       poppins: ["Poppins"],
+      ubuntu: ["Ubuntu"],
     },
   },
   plugins: [],
