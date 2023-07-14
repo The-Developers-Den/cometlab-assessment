@@ -3,7 +3,7 @@ const router = express.Router();
 const checkAdmin = require("../middleware/check-admin");
 const axios = require("axios");
 
-router.get("/", checkAdmin, async (req, res) => {
+router.get("/", async (req, res) => {
   axios
     .get(process.env.ENDPOINT + "/problems", {
       params: {
@@ -21,7 +21,7 @@ router.get("/", checkAdmin, async (req, res) => {
     });
 });
 
-router.get("/:id", checkAdmin, async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   axios
     .get(process.env.ENDPOINT + "/problems/" + id, {
