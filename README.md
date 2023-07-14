@@ -1,4 +1,4 @@
-# Commetla Assessment
+# Commetlab Assessment
 
 This repo contains some basic apis which does the following functionalities -
 
