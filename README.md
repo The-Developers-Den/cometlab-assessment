@@ -43,6 +43,8 @@ npm i
 npm run start
 ```
 
+> Postamn docs can be accessed from ![here](https://www.postman.com/navigation-observer-59279834/workspace/public-workspace/collection/23083258-d874e954-2c51-4eff-96e0-b51719d868af?action=share&creator=23083258)
+
 ## Functionalities
 
 ### 1. Authentication
@@ -78,10 +80,26 @@ npm run start
 
 ![addauth-user](assets/create-q.png)
 
-2.5 Edit a question <br>
+2.5 Create a testcase question <br>
+
+![addauth-user](assets/create-test.png)
+
+2.6 Get all testcases for a question <br>
+
+![addauth-user](assets/all-test.png)
+
+2.7 Get particular testcase for a question <br>
+
+![addauth-user](assets/p-testcase.png)
+
+2.8 Edit a testcase <br>
+
+![addauth-user](assets/edit-t.png)
+
+2.9 Edit a question <br>
 
 ![addauth-user](assets/edit-q.png)
 
-2.5 Delete a question <br>
+2.10 Delete a question <br>
 
 ![addauth-user](assets/del-q.png)
